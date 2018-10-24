@@ -1,0 +1,93 @@
+{% block setting_value_widget %}
+{% set widget_id = random()  %}
+{% set subject = form.parent.vars.value|default({id: 0, type: null, value: null}) %}
+{% set value = subject.value %}
+{% set _attr = attr|merge({'data-type': subject.type}) %}
+<div class="lexxpavlov_settings_value_container">
+{%- spaceless %}
+    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Boolean') %}
+        {% set attr = _attr %}
+        {% if value == true %}
+            {% set value = 'on' %}
+        {% elseif value == false %}
+            {% set value = 'off' %}
+        {% endif %}
+        {{ block('choice_widget') }}
+    {% endif %}
+    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Integer') %}
+        {% set type = 'number' %}
+        {% set attr = _attr %}
+        {{ block('form_widget_simple') }}
+    {% endif %}
+    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Float') %}
+        {% set type = 'number' %}
+        {% set attr = _attr|merge({step:'any'}) %}
+        {{ block('form_widget_simple') }}
+    {% endif %}
+    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::String') %}
+        {% set type = 'text' %}
+        {% set attr = _attr %}
+        {{ block('form_widget_simple') }}
+    {% endif %}
+    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Text') %}
+        {% set attr = _attr %}
+        {{ block('textarea_widget') }}
+    {% endif %}
+    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Html') %}
+        {% set attr = _attr %}
+        {{ block(html_widget ? html_widget~'_widget': 'textarea_widget') }}
+    {% endif %}
+{% endspaceless %}
+</div>
+{% set value = null %}
+<script type="text/html" id="tpl_widget_boolean_{{ widget_id }}">
+{%- set attr = _attr|merge({'data-type': 'boolean'}) -%}
+{{- block('choice_widget') -}}
+</script>
+<script type="text/html" id="tpl_widget_int_{{ widget_id }}">
+{%- set type = 'number' -%}
+{%- set attr = _attr|merge({'data-type': 'int'}) -%}
+{{- block('form_widget_simple') -}}
+</script>
+<script type="text/html" id="tpl_widget_float_{{ widget_id }}">
+{%- set attr = _attr|merge({'data-type': 'float', step:'any'}) -%}
+{{- block('form_widget_simple') -}}
+</script>
+<script type="text/html" id="tpl_widget_string_{{ widget_id }}">
+{%- set type = 'text' -%}
+{%- set attr = _attr|merge({'data-type':  'string'}) -%}
+{{- block('form_widget_simple') -}}
+</script>
+<script type="text/html" id="tpl_widget_text_{{ widget_id }}">
+{%- set attr = _attr|merge({'data-type': 'text'}) -%}
+{{- block('textarea_widget') -}}
+</script>
+<script type="text/html" id="tpl_widget_html_{{ widget_id }}">
+{%- set attr = _attr|merge({'data-type': 'html'}) -%}
+{{- block('textarea_widget') -}}
+</script>
+{% if html_widget == 'ckeditor' %}
+<script type="text/javascript">var CKEDITOR_BASEPATH = "{{ base_path }}";</script>
+<script type="text/javascript" src="{{ js_path }}"></script>
+{% endif %}
+<script type="text/javascript" id="lexxpavlov_setting_value_script_{{ widget_id }}">
+document.addEventListener("DOMContentLoaded", function() {
+    var form = document.getElementById('lexxpavlov_setting_value_script_{{ widget_id }}').parentNode;
+    while (!(form.tagName === 'FORM' && form.tagName !== "HTML")) form = form.parentNode;
+    var form_id = form.getElementsByTagName('INPUT')[0].name.replace(/\[.*\]/, '');
+    var container = form.getElementsByClassName('lexxpavlov_settings_value_container')[0];
+    form[form_id+'[type]'].addEventListener("change", function () { setValueType(this.value); });
+{% if subject.type is null %}
+    setValueType('boolean');
+{% endif %}
+
+    function setValueType(type) {
+        var node = form[form_id+'[value]'];
+        if (node) container.dataset[node.dataset.type] = node.value;
+        container.innerHTML = document.getElementById('tpl_widget_' + type + '_{{ widget_id }}').innerHTML;
+        if (container.dataset[type] !== undefined) form[form_id+'[value]'].value = container.dataset[type];
+        if (type == 'html') window.CKEDITOR && CKEDITOR.replace(form_id+'_value').on('blur', function() { this.updateElement(); });
+    }
+});
+</script>
+{% endblock %}

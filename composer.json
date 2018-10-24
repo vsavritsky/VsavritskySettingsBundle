@@ -1,0 +1,29 @@
+{
+    "name" : "vsavritsky/settingsbundle",
+    "description" : "Symfony2/3 Settings bundle provides flexible settings (Boolean, Integer, Float, String, Text, Html), easily configurable with Sonata Admin",
+    "type" : "symfony-bundle",
+    "homepage": "https://github.com/vsavritsky/VsavritskySettingsBundle",
+    "license" : "MIT",
+    "keywords" : ["settings", "settings bundle", "settings management"],
+    "authors" : [{
+        "name" : "Alexey Pavlov",
+        "email" : "lexx.pavlov@gmail.com"
+    }],
+    "require" : {
+        "php": ">=7.1",
+        "symfony/framework-bundle": ">=4",
+        "fresh/doctrine-enum-bundle": ">=4.8"
+    },
+    "suggest": {
+        "sonata-project/admin-bundle": "Allow configure settings with administration panel",
+        "egeloen/ckeditor-bundle": "Allow use ckeditor for Html value"
+    },
+    "autoload" : {
+        "psr-4" : { "Vsavritsky\\SettingsBundle\\" : "" }
+    },
+    "extra" : {
+        "branch-alias" : {
+            "dev-master" : "1.x-dev"
+        }
+    }
+}

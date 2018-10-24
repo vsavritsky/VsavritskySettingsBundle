@@ -1,0 +1,36 @@
+services:
+    lexxpavlov_settings.cache_provider:
+        class: AdapterCacheInterface
+        factory: [Lexxpavlov\SettingsBundle\Cache\CacheFactory, createByName]
+        arguments:
+            - "%lexxpavlov_settings.cache_provider%"
+            - "@service_container"
+
+    lexxpavlov_settings.settings:
+        class: Lexxpavlov\SettingsBundle\Service\Settings
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@lexxpavlov_settings.cache_provider"
+
+    lexxpavlov_settings.twig.settings:
+        class: Lexxpavlov\SettingsBundle\Twig\SettingsExtension
+        arguments:
+            - "@lexxpavlov_settings.settings"
+        tags: [{ name: twig.extension }]
+        public: false
+
+    lexxpavlov_settings.form.type.setting_value:
+        class: Lexxpavlov\SettingsBundle\Form\Type\SettingValueType
+        arguments:
+            - "@service_container"
+            - "%lexxpavlov_settings.html_widget%"
+        tags:
+            - { name: form.type, alias: setting_value }
+
+    lexxpavlov_settings.form.settings:
+        class: Lexxpavlov\SettingsBundle\Form\Settings
+        tags: [{ name: form.type, alias: lexxpavlov_settings }]
+
+    lexxpavlov_settings.form.category:
+        class: Lexxpavlov\SettingsBundle\Form\Category
+        tags: [{ name: form.type, alias: lexxpavlov_settings_category }]
