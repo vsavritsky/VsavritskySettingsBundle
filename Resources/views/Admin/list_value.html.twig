@@ -1,7 +1,7 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 {% block field %}
 {% spaceless %}
-    {% if object.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Boolean') %}
+    {% if object.type is constant('Vsavritsky\\SettingsBundle\\DBAL\\SettingsType::Boolean') %}
         {% if object.value %}
             <i class="fa fa-check"></i> {% trans %}On{% endtrans %}
         {% else %}

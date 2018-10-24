@@ -1,36 +1,41 @@
 services:
-    lexxpavlov_settings.cache_provider:
+    vsavritsky_settings.cache_provider:
         class: AdapterCacheInterface
-        factory: [Lexxpavlov\SettingsBundle\Cache\CacheFactory, createByName]
+        factory: [Vsavritsky\SettingsBundle\Cache\CacheFactory, createByName]
         arguments:
-            - "%lexxpavlov_settings.cache_provider%"
+            - "%vsavritsky_settings.cache_provider%"
             - "@service_container"
+        public: true
 
-    lexxpavlov_settings.settings:
-        class: Lexxpavlov\SettingsBundle\Service\Settings
+    vsavritsky_settings.settings:
+        class: Vsavritsky\SettingsBundle\Service\Settings
         arguments:
             - "@doctrine.orm.entity_manager"
-            - "@lexxpavlov_settings.cache_provider"
+            - "@vsavritsky_settings.cache_provider"
+        public: true
 
-    lexxpavlov_settings.twig.settings:
-        class: Lexxpavlov\SettingsBundle\Twig\SettingsExtension
+    vsavritsky_settings.twig.settings:
+        class: Vsavritsky\SettingsBundle\Twig\SettingsExtension
         arguments:
-            - "@lexxpavlov_settings.settings"
+            - "@vsavritsky_settings.settings"
         tags: [{ name: twig.extension }]
         public: false
 
-    lexxpavlov_settings.form.type.setting_value:
-        class: Lexxpavlov\SettingsBundle\Form\Type\SettingValueType
+    vsavritsky_settings.form.type.setting_value:
+        class: Vsavritsky\SettingsBundle\Form\Type\SettingValueType
         arguments:
             - "@service_container"
-            - "%lexxpavlov_settings.html_widget%"
+            - "%vsavritsky_settings.html_widget%"
         tags:
             - { name: form.type, alias: setting_value }
+        public: true
 
-    lexxpavlov_settings.form.settings:
-        class: Lexxpavlov\SettingsBundle\Form\Settings
-        tags: [{ name: form.type, alias: lexxpavlov_settings }]
+    vsavritsky_settings.form.settings:
+        class: Vsavritsky\SettingsBundle\Form\Settings
+        tags: [{ name: form.type, alias: vsavritsky_settings }]
+        public: true
 
-    lexxpavlov_settings.form.category:
-        class: Lexxpavlov\SettingsBundle\Form\Category
-        tags: [{ name: form.type, alias: lexxpavlov_settings_category }]
+    vsavritsky_settings.form.category:
+        class: Vsavritsky\SettingsBundle\Form\Category
+        tags: [{ name: form.type, alias: vsavritsky_settings_category }]
+        public: true

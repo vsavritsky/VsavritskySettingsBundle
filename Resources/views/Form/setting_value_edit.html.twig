@@ -3,9 +3,9 @@
 {% set subject = form.parent.vars.value|default({id: 0, type: null, value: null}) %}
 {% set value = subject.value %}
 {% set _attr = attr|merge({'data-type': subject.type}) %}
-<div class="lexxpavlov_settings_value_container">
+<div class="vsavritsky_settings_value_container">
 {%- spaceless %}
-    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Boolean') %}
+    {% if subject.type is constant('Vsavritsky\\SettingsBundle\\DBAL\\SettingsType::Boolean') %}
         {% set attr = _attr %}
         {% if value == true %}
             {% set value = 'on' %}
@@ -14,26 +14,26 @@
         {% endif %}
         {{ block('choice_widget') }}
     {% endif %}
-    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Integer') %}
+    {% if subject.type is constant('Vsavritsky\\SettingsBundle\\DBAL\\SettingsType::Integer') %}
         {% set type = 'number' %}
         {% set attr = _attr %}
         {{ block('form_widget_simple') }}
     {% endif %}
-    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Float') %}
+    {% if subject.type is constant('Vsavritsky\\SettingsBundle\\DBAL\\SettingsType::Float') %}
         {% set type = 'number' %}
         {% set attr = _attr|merge({step:'any'}) %}
         {{ block('form_widget_simple') }}
     {% endif %}
-    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::String') %}
+    {% if subject.type is constant('Vsavritsky\\SettingsBundle\\DBAL\\SettingsType::String') %}
         {% set type = 'text' %}
         {% set attr = _attr %}
         {{ block('form_widget_simple') }}
     {% endif %}
-    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Text') %}
+    {% if subject.type is constant('Vsavritsky\\SettingsBundle\\DBAL\\SettingsType::Text') %}
         {% set attr = _attr %}
         {{ block('textarea_widget') }}
     {% endif %}
-    {% if subject.type is constant('Lexxpavlov\\SettingsBundle\\DBAL\\SettingsType::Html') %}
+    {% if subject.type is constant('Vsavritsky\\SettingsBundle\\DBAL\\SettingsType::Html') %}
         {% set attr = _attr %}
         {{ block(html_widget ? html_widget~'_widget': 'textarea_widget') }}
     {% endif %}
@@ -70,12 +70,12 @@
 <script type="text/javascript">var CKEDITOR_BASEPATH = "{{ base_path }}";</script>
 <script type="text/javascript" src="{{ js_path }}"></script>
 {% endif %}
-<script type="text/javascript" id="lexxpavlov_setting_value_script_{{ widget_id }}">
+<script type="text/javascript" id="vsavritsky_setting_value_script_{{ widget_id }}">
 document.addEventListener("DOMContentLoaded", function() {
-    var form = document.getElementById('lexxpavlov_setting_value_script_{{ widget_id }}').parentNode;
+    var form = document.getElementById('vsavritsky_setting_value_script_{{ widget_id }}').parentNode;
     while (!(form.tagName === 'FORM' && form.tagName !== "HTML")) form = form.parentNode;
     var form_id = form.getElementsByTagName('INPUT')[0].name.replace(/\[.*\]/, '');
-    var container = form.getElementsByClassName('lexxpavlov_settings_value_container')[0];
+    var container = form.getElementsByClassName('vsavritsky_settings_value_container')[0];
     form[form_id+'[type]'].addEventListener("change", function () { setValueType(this.value); });
 {% if subject.type is null %}
     setValueType('boolean');

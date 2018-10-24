@@ -3,6 +3,7 @@
 namespace Vsavritsky\SettingsBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -19,7 +20,7 @@ class Settings extends AbstractType
             : 'setting_value';
         $builder
             ->add('category', 'entity', array('class' => 'VsavritskySettingsBundle:Category', 'property_path' => 'name', 'required' => false))
-            ->add('name', 'text')
+            ->add('name', TextType::class)
             ->add('type', 'choice', array('choices' => SettingsType::getChoices()))
             ->add('value', $valueType)
             ->add('comment', 'textarea', array('required' => false))

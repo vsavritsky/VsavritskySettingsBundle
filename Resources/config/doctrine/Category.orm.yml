@@ -1,6 +1,6 @@
-Lexxpavlov\SettingsBundle\Entity\Category:
+Vsavritsky\SettingsBundle\Entity\Category:
     type: entity
-    table: lexxpavlov_settings_categories
+    table: vsavritsky_settings_categories
     id:
         id:
             type: integer

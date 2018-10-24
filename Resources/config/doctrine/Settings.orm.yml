@@ -1,7 +1,7 @@
-Lexxpavlov\SettingsBundle\Entity\Settings:
+Vsavritsky\SettingsBundle\Entity\Settings:
     type: entity
-    table: lexxpavlov_settings
-    repositoryClass: Lexxpavlov\SettingsBundle\Entity\SettingsRepository
+    table: vsavritsky_settings
+    repositoryClass: Vsavritsky\SettingsBundle\Entity\SettingsRepository
     indexes:
         name_idx:
             columns: [ name ]
@@ -14,7 +14,7 @@ Lexxpavlov\SettingsBundle\Entity\Settings:
             generator: { strategy: AUTO }
     fields:
         type:
-            type: LexxpavlovSettingsEnumType
+            type: VsavritskySettingsEnumType
         name:
             type: string
             length: 50
@@ -26,4 +26,4 @@ Lexxpavlov\SettingsBundle\Entity\Settings:
             nullable: true
     manyToOne:
         category:
-            targetEntity: Lexxpavlov\SettingsBundle\Entity\Category
+            targetEntity: Vsavritsky\SettingsBundle\Entity\Category
