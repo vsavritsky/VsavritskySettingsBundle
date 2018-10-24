@@ -2,7 +2,7 @@
     "name" : "vsavritsky/settingsbundle",
     "description" : "Symfony4 Settings bundle provides flexible settings (Boolean, Integer, Float, String, Text, Html), easily configurable with Sonata Admin",
     "type" : "symfony-bundle",
-    "homepage": "https://github.com/vsavritsky/SettingsBundle",
+    "homepage": "https://github.com/vsavritsky/VsavritskySettingsBundle",
     "license" : "MIT",
     "keywords" : ["settings", "settings bundle", "settings management"],
     "require" : {
