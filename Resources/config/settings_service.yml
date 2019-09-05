@@ -1,3 +1,4 @@
 services:
     settings:
         alias: vsavritsky_settings.settings
+        public: true

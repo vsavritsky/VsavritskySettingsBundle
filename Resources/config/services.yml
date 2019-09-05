@@ -19,7 +19,7 @@ services:
         arguments:
             - "@vsavritsky_settings.settings"
         tags: [{ name: twig.extension }]
-        public: false
+        public: true
 
     vsavritsky_settings.form.type.setting_value:
         class: Vsavritsky\SettingsBundle\Form\Type\SettingValueType
